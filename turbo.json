@@ -7,7 +7,7 @@
       "env": ["DATABASE_URL"]
     },
     "build": {
-      "dependsOn": ["^build", "^db:generate", "db:migrate:deploy"],
+      "dependsOn": ["^build", "^db:generate"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**", "!.next/dev/**"],
       "env": ["DATABASE_URL"]
