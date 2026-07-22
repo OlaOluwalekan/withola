@@ -6,7 +6,8 @@
   "scripts": {
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
-    "db:migrate": "prisma migrate deploy"
+    "db:migrate": "prisma migrate deploy",
+    "build": "prisma generate && prisma migrate deploy"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.0.0",
