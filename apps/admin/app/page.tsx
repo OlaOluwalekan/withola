@@ -1,10 +1,4 @@
-import { prisma } from '@repo/database'
-
-const HomePage = async () => {
-  const users = await prisma.user.findMany({})
-
-  console.log('Test ==>', users)
-
+const HomePage = () => {
   return <div>Admin</div>
 }
 
