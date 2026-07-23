@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
   },
   serverExternalPackages: ['@prisma/client', 'pg'],
   transpilePackages: ['@repo/database'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+    ],
+  },
 }
 
 export default nextConfig

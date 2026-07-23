@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@repo/tailwind-config";
+@plugin "@tailwindcss/typography";
 
 :root {
   --foreground-rgb: 0, 0, 0;
