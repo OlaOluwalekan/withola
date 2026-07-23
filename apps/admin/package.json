@@ -22,6 +22,7 @@
     "@tiptap/starter-kit": "^3.28.0",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
+    "emoji-picker-react": "^4.19.1",
     "geist": "^1.7.1",
     "highlight.js": "^11.11.1",
     "lowlight": "^3.3.0",
