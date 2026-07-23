@@ -4,7 +4,7 @@
   "tasks": {
     "db:generate": {
       "cache": false,
-      "env": ["DATABASE_URL"]
+      "env": ["DATABASE_URL", "ADMIN_EMAIL", "ADMIN_PASSWORD"]
     },
     "build": {
       "dependsOn": ["^build", "^db:generate"],
@@ -15,7 +15,10 @@
         "AUTH_SECRET",
         "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME",
         "NEXT_PUBLIC_CLOUDINARY_API_KEY",
-        "CLOUDINARY_API_SECRET"
+        "CLOUDINARY_API_SECRET",
+        "ADMIN_EMAIL",
+        "ADMIN_PASSWORD",
+        "NEXT_PUBLIC_BASE_FOLDER"
       ]
     },
     "lint": {
