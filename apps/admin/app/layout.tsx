@@ -2,6 +2,7 @@ import '@repo/ui/styles.css'
 import './globals.css'
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
+import { Toaster } from 'sonner'
 
 import { ThemeProvider } from '../components/theme-provider'
 import { Sidebar } from '../components/sidebar'
@@ -30,6 +31,7 @@ export default function RootLayout({
               <main className='flex-1 p-6 overflow-auto'>{children}</main>
             </div>
           </div>
+          <Toaster richColors position='top-right' />
         </ThemeProvider>
       </body>
     </html>
