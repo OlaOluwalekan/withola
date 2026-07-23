@@ -11,6 +11,7 @@ interface FileUploadProps {
   folder?: string
   resourceType?: 'image' | 'raw' | 'video' | 'auto'
   clientAllowedFormats?: string[]
+  maxFiles?: number
 }
 
 const baseFolder = process.env.NEXT_PUBLIC_BASE_FOLDER
@@ -22,7 +23,9 @@ export function FileUpload({
   folder = 'projects',
   resourceType = 'image',
   clientAllowedFormats = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'],
+  maxFiles = 10,
 }: FileUploadProps) {
+  const isAtLimit = value.length >= maxFiles
   const onUpload = (result: any) => {
     onChange(result.info.secure_url)
   }
@@ -33,6 +36,8 @@ export function FileUpload({
       resourceType === 'image'
     )
   }
+
+
 
   return (
     <div>
@@ -81,17 +86,23 @@ export function FileUpload({
         {({ open }) => {
           const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault()
-            open()
+            if (!isAtLimit) open()
           }
           return (
-            <button
-              type='button'
-              onClick={onClick}
-              className='px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-md flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-medium text-sm border dark:border-gray-700'
-            >
-              <ImagePlus className='h-4 w-4' />
-              Upload {resourceType === 'image' ? 'Image' : 'File'}
-            </button>
+            <div className='flex items-center gap-3'>
+              <button
+                type='button'
+                onClick={onClick}
+                disabled={isAtLimit}
+                className='px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-md flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-medium text-sm border dark:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed'
+              >
+                <ImagePlus className='h-4 w-4' />
+                Upload {resourceType === 'image' ? 'Image' : 'File'}
+              </button>
+              <span className='text-sm text-gray-500 dark:text-gray-400'>
+                {value.length} / {maxFiles}
+              </span>
+            </div>
           )
         }}
       </CldUploadWidget>

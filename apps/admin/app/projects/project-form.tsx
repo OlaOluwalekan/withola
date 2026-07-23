@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState, useState } from 'react'
+import { useActionState, useEffect, useState } from 'react'
 import { createProject, updateProject } from '../actions/projects'
 import { useRouter } from 'next/navigation'
 import { Plus, Trash2 } from 'lucide-react'
@@ -28,6 +28,10 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
     initialData?.isFeatured || false,
   )
   const [iconValue, setIconValue] = useState<string>(initialData?.icon || '')
+
+  useEffect(() => {
+    console.log('Shots ==>', screenShots)
+  }, [])
 
   const [state, formAction, isPending] = useActionState(
     async (prevState: any, formData: FormData) => {
@@ -249,12 +253,13 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
         <label className='block text-sm font-medium mb-2'>Screenshots</label>
         <FileUpload
           value={screenShots}
-          onChange={(url) => setScreenShots([...screenShots, url])}
+          onChange={(url) => setScreenShots((prev) => [...prev, url])}
           onRemove={(url) =>
-            setScreenShots(screenShots.filter((s) => s !== url))
+            setScreenShots((prev) => prev.filter((s) => s !== url))
           }
           folder='projects'
           resourceType='image'
+          maxFiles={10}
         />
         {fieldErrors?.screenShots && (
           <p className='text-red-500 text-sm mt-1'>
