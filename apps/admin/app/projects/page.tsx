@@ -31,7 +31,9 @@ export default async function ProjectsPage() {
                 <td className="p-4 flex items-center gap-3">
                   <span className="text-2xl bg-gray-100 dark:bg-gray-800 w-10 h-10 flex items-center justify-center rounded-lg">{project.icon}</span>
                   <div>
-                    <div className="font-medium">{project.title}</div>
+                    <Link href={`/projects/${project.id}/view`} className="font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                      {project.title}
+                    </Link>
                     <div className="text-sm text-gray-500">{project.technologies.join(', ')}</div>
                   </div>
                 </td>

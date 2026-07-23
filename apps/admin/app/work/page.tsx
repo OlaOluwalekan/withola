@@ -29,7 +29,9 @@ export default async function WorkPage() {
             {experiences.map(work => (
               <tr key={work.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                 <td className="p-4">
-                  <div className="font-medium text-lg">{work.jobTitle}</div>
+                  <Link href={`/work/${work.id}/view`} className="font-medium text-lg hover:text-blue-600 dark:hover:text-blue-400 transition-colors block">
+                    {work.jobTitle}
+                  </Link>
                   <div className="text-gray-600 dark:text-gray-400">{work.company} • {work.companyLocation}</div>
                 </td>
                 <td className="p-4 text-gray-600 dark:text-gray-300">

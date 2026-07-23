@@ -5,6 +5,7 @@ import { createWork, updateWork } from '../actions/work'
 import { useRouter } from 'next/navigation'
 import { WorkLocationType, WorkType } from '@repo/database/enums'
 import { Plus, Trash2 } from 'lucide-react'
+import { MiniRichTextEditor } from '../../components/mini-rich-text-editor'
 
 export function WorkForm({ initialData }: { initialData?: any }) {
   const router = useRouter()
@@ -151,17 +152,16 @@ export function WorkForm({ initialData }: { initialData?: any }) {
         <div className='space-y-3'>
           {responsibilities.map((resp, i) => (
             <div key={i} className='flex gap-2'>
-              <input
-                type='text'
-                value={resp}
-                onChange={(e) => {
-                  const newResps = [...responsibilities]
-                  newResps[i] = e.target.value
-                  setResponsibilities(newResps)
-                }}
-                className='flex-1 px-4 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700'
-                placeholder={`Achievement ${i + 1}`}
-              />
+              <div className="flex-1">
+                <MiniRichTextEditor
+                  value={resp}
+                  onChange={(val) => {
+                    const newResps = [...responsibilities]
+                    newResps[i] = val
+                    setResponsibilities(newResps)
+                  }}
+                />
+              </div>
               <button
                 type='button'
                 onClick={() =>
