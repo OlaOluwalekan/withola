@@ -4,8 +4,9 @@ import { useActionState, useState } from "react";
 import { createProject, updateProject } from "../actions/projects";
 import { useRouter } from "next/navigation";
 import { Plus, Trash2 } from "lucide-react";
-import { ImageUpload } from "../../components/image-upload";
+import { FileUpload } from "../../components/file-upload";
 import { RichTextEditor } from "../../components/rich-text-editor";
+import { toast } from "sonner";
 
 export function ProjectForm({ initialData }: { initialData?: any }) {
   const router = useRouter();
@@ -27,13 +28,22 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
     formData.set("readme", readme);
     formData.set("isFeatured", isFeatured.toString());
     
-    const res = await action(formData);
-    if (res?.success) {
-      router.push("/projects");
-      router.refresh();
-      return { success: true };
+    try {
+      const res = await action(formData);
+      if (res?.success) {
+        toast.success("Project saved successfully!");
+        router.push("/projects");
+        router.refresh();
+        return { success: true };
+      }
+      if (res?.error) {
+        toast.error("Please fill in all required fields correctly.");
+        return res;
+      }
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong saving the project.");
+      return { error: { server: error.message } };
     }
-    return res;
   }, undefined);
 
   return (
@@ -54,21 +64,25 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
         <div>
           <label className="block text-sm font-medium mb-1">Title</label>
           <input name="title" defaultValue={initialData?.title} required className="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700" placeholder="My Awesome App" />
+          {state?.error?.title && <p className="text-red-500 text-sm mt-1">{state.error.title[0]}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1">Icon / Emoji</label>
           <input name="icon" defaultValue={initialData?.icon} required className="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700" placeholder="🚀" />
+          {state?.error?.icon && <p className="text-red-500 text-sm mt-1">{state.error.icon[0]}</p>}
         </div>
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-1">Major Feature</label>
         <input name="majorFeature" defaultValue={initialData?.majorFeature} required className="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700" placeholder="Real-time Collaboration" />
+        {state?.error?.majorFeature && <p className="text-red-500 text-sm mt-1">{state.error.majorFeature[0]}</p>}
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-1">Short Description</label>
         <textarea name="description" defaultValue={initialData?.description} required rows={3} className="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700" placeholder="A brief summary of the project..."></textarea>
+        {state?.error?.description && <p className="text-red-500 text-sm mt-1">{state.error.description[0]}</p>}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -120,16 +134,20 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
 
       <div>
         <label className="block text-sm font-medium mb-2">Screenshots</label>
-        <ImageUpload 
+        <FileUpload 
           value={screenShots} 
           onChange={(url) => setScreenShots([...screenShots, url])}
           onRemove={(url) => setScreenShots(screenShots.filter(s => s !== url))}
+          folder="projects"
+          resourceType="image"
         />
+        {state?.error?.screenShots && <p className="text-red-500 text-sm mt-1">{state.error.screenShots[0]}</p>}
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-2">Readme / Detailed Content</label>
         <RichTextEditor value={readme} onChange={setReadme} />
+        {state?.error?.readme && <p className="text-red-500 text-sm mt-1">{state.error.readme[0]}</p>}
       </div>
       
       <div className="pt-4 flex justify-end">
