@@ -4,9 +4,12 @@ import { useActionState } from 'react'
 import { createSkill, updateSkill } from '../actions/skills'
 import { useRouter } from 'next/navigation'
 import { SkillCategory } from '@repo/database/enums'
+import { IconPicker } from '../../components/icon-picker'
+import { useState } from 'react'
 
 export function SkillForm({ initialData }: { initialData?: any }) {
   const router = useRouter()
+  const [emojiIcon, setEmojiIcon] = useState<string>(initialData?.emojiIcon || "")
 
   const action = initialData
     ? updateSkill.bind(null, initialData.id)
@@ -45,13 +48,8 @@ export function SkillForm({ initialData }: { initialData?: any }) {
       </div>
       <div>
         <label className='block text-sm font-medium mb-1'>Emoji / Icon</label>
-        <input
-          name='emojiIcon'
-          defaultValue={initialData?.emojiIcon}
-          required
-          className='w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700'
-          placeholder='⚛️'
-        />
+        <input type="hidden" name="emojiIcon" value={emojiIcon} />
+        <IconPicker value={emojiIcon} onChange={setEmojiIcon} />
       </div>
       <div>
         <label className='block text-sm font-medium mb-1'>

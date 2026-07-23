@@ -1,7 +1,8 @@
 import { prisma } from '@repo/database'
 import Link from 'next/link'
-import { deleteSkill } from '../actions/skills'
-import { Trash2, Edit } from 'lucide-react'
+import { deleteSkill } from "../actions/skills";
+import { Trash2, Edit } from "lucide-react";
+import { DynamicIcon } from "../../components/dynamic-icon";
 
 export default async function SkillsPage() {
   const skills = await prisma.skill.findMany({
@@ -46,7 +47,7 @@ export default async function SkillsPage() {
               >
                 <td className='p-4 flex items-center gap-3 font-medium'>
                   <span className='text-2xl bg-gray-100 dark:bg-gray-800 w-10 h-10 flex items-center justify-center rounded-lg'>
-                    {skill.emojiIcon}
+                    <DynamicIcon icon={skill.emojiIcon} className="w-5 h-5" />
                   </span>
                   {skill.name}
                 </td>

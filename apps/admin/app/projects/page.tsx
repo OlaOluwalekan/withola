@@ -2,6 +2,7 @@ import { prisma } from "@repo/database";
 import Link from "next/link";
 import { deleteProject } from "../actions/projects";
 import { Trash2, Edit } from "lucide-react";
+import { DynamicIcon } from "../../components/dynamic-icon";
 
 export default async function ProjectsPage() {
   const projects = await prisma.project.findMany({
@@ -29,7 +30,9 @@ export default async function ProjectsPage() {
             {projects.map(project => (
               <tr key={project.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                 <td className="p-4 flex items-center gap-3">
-                  <span className="text-2xl bg-gray-100 dark:bg-gray-800 w-10 h-10 flex items-center justify-center rounded-lg">{project.icon}</span>
+                  <span className="text-2xl bg-gray-100 dark:bg-gray-800 w-10 h-10 flex items-center justify-center rounded-lg">
+                    <DynamicIcon icon={project.icon} className="w-5 h-5" />
+                  </span>
                   <div>
                     <Link href={`/projects/${project.id}/view`} className="font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                       {project.title}

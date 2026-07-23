@@ -8,6 +8,7 @@ import {
   Calendar,
   ArrowRight,
 } from 'lucide-react'
+import { DynamicIcon } from '../components/dynamic-icon'
 
 export const dynamic = 'force-dynamic'
 
@@ -181,7 +182,7 @@ export default async function HomePage() {
                 className='flex items-center gap-4 p-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-lg transition-colors group'
               >
                 <span className='text-2xl bg-gray-100 dark:bg-gray-800 w-12 h-12 flex items-center justify-center rounded-lg group-hover:scale-105 transition-transform'>
-                  {project.icon}
+                  <DynamicIcon icon={project.icon} className="w-6 h-6" />
                 </span>
                 <div className='flex-1 min-w-0'>
                   <p className='font-medium truncate flex items-center gap-2 text-gray-900 dark:text-gray-100'>
