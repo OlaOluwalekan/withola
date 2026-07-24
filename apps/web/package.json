@@ -14,9 +14,12 @@
     "@repo/database": "workspace:*",
     "@repo/ui": "workspace:*",
     "geist": "^1.7.1",
+    "lucide-react": "^1.26.0",
+    "motion": "^12.42.2",
     "next": "16.2.0",
     "react": "^19.2.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.7.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^16.2.0",
