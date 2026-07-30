@@ -2,6 +2,8 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import MobileDrawer from '../components/MobileDrawer'
+import ScrollMaster from '../components/ScrollMaster'
+import Terminal3D from '../components/Terminal3D'
 
 const HomePage = () => {
   return (
@@ -16,7 +18,12 @@ const HomePage = () => {
         className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 space-y-12'
         id='main-content'
       >
+        <ScrollMaster />
         <Hero />
+
+        <div id='terminal' className='scroll-mt-16'>
+          <Terminal3D />
+        </div>
       </main>
 
       <Footer />
