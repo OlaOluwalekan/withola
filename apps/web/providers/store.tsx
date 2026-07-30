@@ -8,6 +8,11 @@ import {
   useState,
 } from 'react'
 import { StoreValues } from '../types/store.interface'
+import { Project, Skill, WorkExperience } from '@repo/database'
+import { handleScrollHelper } from '../lib/store.lib'
+import { getProjects } from '../models/projects'
+import { getSkills } from '../models/skills'
+import { getWorkExperiences } from '../models/experience'
 
 const StoreContext = createContext<StoreValues | null>(null)
 
@@ -24,32 +29,54 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
     }
     return 'dark'
   })
+  const [storeProjects, setStoreProjects] = useState<Project[] | null>([])
+  const [storeSkills, setStoreSkills] = useState<Skill[] | null>([])
+  const [storeWorkExperiences, setStoreWorkExperiences] = useState<
+    WorkExperience[] | null
+  >([])
+
+  const fetchStoreData = async () => {
+    const [projectsResponse, skillResponse, workExperienceResponse] =
+      await Promise.allSettled([
+        getProjects(),
+        getSkills(),
+        getWorkExperiences(),
+      ])
+
+    if (projectsResponse.status === 'fulfilled') {
+      const projectResult = projectsResponse.value
+      if (projectResult.success && projectResult.data) {
+        setStoreProjects(projectResult.data.projects ?? null)
+      }
+    } else {
+      setStoreProjects(null)
+    }
+
+    if (skillResponse.status === 'fulfilled') {
+      const skillResult = skillResponse.value
+      if (skillResult.success && skillResult.data) {
+        setStoreSkills(skillResult.data.skills ?? null)
+      }
+    } else {
+      setStoreSkills(null)
+    }
+
+    if (workExperienceResponse.status === 'fulfilled') {
+      const workExperienceResult = workExperienceResponse.value
+      if (workExperienceResult.success && workExperienceResult.data) {
+        setStoreWorkExperiences(
+          workExperienceResult.data.workExperiences ?? null,
+        )
+      }
+    } else {
+      setStoreWorkExperiences(null)
+    }
+  }
 
   // Track scrolling to highlight active nav sections
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = [
-        'home',
-        'terminal',
-        'projects',
-        'skills',
-        'experience',
-        'contact',
-      ]
-      const scrollPos = window.scrollY + 180
-
-      for (const section of sections) {
-        const el = document.getElementById(section)
-        if (el) {
-          const top = el.offsetTop
-          const height = el.offsetHeight
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveSection(section)
-            break
-          }
-        }
-      }
-    }
+    fetchStoreData()
+    const handleScroll = () => handleScrollHelper(setActiveSection)
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
@@ -76,6 +103,9 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         setActiveSection,
         theme,
         setTheme,
+        storeProjects,
+        storeSkills,
+        storeWorkExperiences,
       }}
     >
       {children}

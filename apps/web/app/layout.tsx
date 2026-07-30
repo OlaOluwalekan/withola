@@ -15,10 +15,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <StoreProvider>
-      <html lang='en' suppressHydrationWarning>
-        <body className={GeistSans.className}>{children}</body>
-      </html>
-    </StoreProvider>
+    <html lang='en' suppressHydrationWarning>
+      <body className={GeistSans.className}>
+        <StoreProvider>{children}</StoreProvider>
+      </body>
+    </html>
   )
 }
