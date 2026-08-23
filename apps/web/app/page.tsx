@@ -6,6 +6,7 @@ import MobileDrawer from '../components/MobileDrawer'
 import ScrollMaster from '../components/ScrollMaster'
 import Terminal3D from '../components/Terminal3D'
 import Projects3D from '../components/Projects3D'
+import Skills3D from '../components/Skills3D'
 
 const HomePage = () => {
   return (
@@ -32,6 +33,11 @@ const HomePage = () => {
         <div id='projects' className='scroll-mt-16'>
           <Projects3D />
         </div>
+
+        {/* SKILLS SECTION */}
+        <section id='skills' className='scroll-mt-16'>
+          <Skills3D />
+        </section>
       </main>
 
       <Footer />
