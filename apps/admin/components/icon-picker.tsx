@@ -5,7 +5,7 @@ import EmojiPicker, { Theme } from 'emoji-picker-react'
 import * as LucideIcons from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Search, X } from 'lucide-react'
-import { DynamicIcon } from './dynamic-icon'
+import { DynamicIcon } from '@repo/ui/dynamic-icon'
 
 interface IconPickerProps {
   value: string
