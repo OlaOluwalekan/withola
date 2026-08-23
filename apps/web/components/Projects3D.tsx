@@ -5,6 +5,9 @@ import { useEffect, useRef, useState } from 'react'
 import { getFeaturedProjects } from '../models/projects'
 import SingleFeaturedProject from './SingleFeaturedProject'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
+import { DynamicIcon } from '@repo/ui/dynamic-icon'
+import FeaturedProjectDetailDialog from './FeaturedProjectDetailDialog'
 
 const Projects3D = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -160,6 +163,7 @@ const Projects3D = () => {
                 radius={radius}
                 cardCount={cardCount}
                 currentIndex={currentIndex}
+                setSelectedProject={setSelectedProject}
               />
             )
           })}
@@ -202,6 +206,15 @@ const Projects3D = () => {
           <ChevronRight className='w-5 h-5' />
         </button>
       </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <FeaturedProjectDetailDialog
+            selectedProject={selectedProject}
+            setSelectedProject={setSelectedProject}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

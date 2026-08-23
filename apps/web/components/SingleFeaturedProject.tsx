@@ -10,6 +10,7 @@ interface ProjectProps {
   radius: number
   cardCount: number
   currentIndex: number
+  setSelectedProject: (val: Project | null) => void
 }
 
 const SingleFeaturedProject = ({
@@ -19,6 +20,7 @@ const SingleFeaturedProject = ({
   radius,
   cardCount,
   currentIndex,
+  setSelectedProject,
 }: ProjectProps) => {
   const currentBorderStyleIndex = index % borderStylesList.length
   const cardAngle = index * angleStep
@@ -40,7 +42,7 @@ const SingleFeaturedProject = ({
       style={{
         transform: `rotateY(${cardAngle}deg) translateZ(${radius}px)`,
         transformStyle: 'preserve-3d',
-        backfaceVisibility: 'visible', // Keep background cards visible for true 3D hologram look!
+        backfaceVisibility: 'hidden', // Keep background cards visible for true 3D hologram look!
         opacity: opacity,
         pointerEvents: isClickable ? 'auto' : 'none',
       }}
@@ -100,7 +102,7 @@ const SingleFeaturedProject = ({
         <button
           onClick={(e) => {
             e.stopPropagation()
-            // setSelectedProject(project)
+            setSelectedProject(project)
           }}
           className={`w-full py-2.5 px-4 rounded-xl text-xs font-mono font-medium flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
             currentBorderStyleIndex === 0
