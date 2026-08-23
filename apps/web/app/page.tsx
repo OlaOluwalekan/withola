@@ -5,6 +5,7 @@ import Hero from '../components/Hero'
 import MobileDrawer from '../components/MobileDrawer'
 import ScrollMaster from '../components/ScrollMaster'
 import Terminal3D from '../components/Terminal3D'
+import Projects3D from '../components/Projects3D'
 
 const HomePage = () => {
   return (
@@ -26,6 +27,10 @@ const HomePage = () => {
 
         <div id='terminal' className='scroll-mt-16'>
           <Terminal3D />
+        </div>
+
+        <div id='projects' className='scroll-mt-16'>
+          <Projects3D />
         </div>
       </main>
 
