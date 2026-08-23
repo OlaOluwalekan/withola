@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Edit, ExternalLink, GitBranch } from 'lucide-react'
 import Image from 'next/image'
-import { DynamicIcon } from '../../../../components/dynamic-icon'
+import { DynamicIcon } from '@repo/ui/dynamic-icon'
 
 export default async function ViewProjectPage({
   params,

@@ -5,8 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { getFeaturedProjects } from '../models/projects'
 import SingleFeaturedProject from './SingleFeaturedProject'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { AnimatePresence, motion } from 'motion/react'
-import { DynamicIcon } from '@repo/ui/dynamic-icon'
+import { AnimatePresence } from 'motion/react'
 import FeaturedProjectDetailDialog from './FeaturedProjectDetailDialog'
 
 const Projects3D = () => {
