@@ -7,6 +7,7 @@ import ScrollMaster from '../components/ScrollMaster'
 import Terminal3D from '../components/Terminal3D'
 import Projects3D from '../components/Projects3D'
 import Skills3D from '../components/Skills3D'
+import WorkExperience from '../components/WorkExperience'
 
 const HomePage = () => {
   return (
@@ -37,6 +38,11 @@ const HomePage = () => {
         {/* SKILLS SECTION */}
         <section id='skills' className='scroll-mt-16'>
           <Skills3D />
+        </section>
+
+        {/* TIMELINE SECTION */}
+        <section id='experience' className='scroll-mt-16'>
+          <WorkExperience />
         </section>
       </main>
 

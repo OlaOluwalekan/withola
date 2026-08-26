@@ -7,7 +7,14 @@ export const getWorkExperiences = async (): Promise<
   ResponseStructure<WorkExperience[]>
 > => {
   try {
-    const workExperiences = await prisma.workExperience.findMany({})
+    const workExperiences = await prisma.workExperience.findMany({
+      orderBy: {
+        endDate: {
+          sort: 'desc',
+          nulls: 'first',
+        },
+      },
+    })
 
     return { success: true, error: null, data: { workExperiences } }
   } catch (error) {
