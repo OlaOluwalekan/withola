@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Save, Plus, Trash2, Loader2 } from "lucide-react";
 import { getAboutMe, updateAboutMe } from "../actions/about";
+import { IconPicker } from "../../components/icon-picker";
 
 interface Social {
   name: string;
@@ -310,17 +311,16 @@ export default function AboutPage() {
                 </div>
                 <div className="flex-1 space-y-1">
                   <label className="text-xs text-gray-500">
-                    Icon (emoji/url/name)
+                    Icon
                   </label>
-                  <input
-                    type="text"
-                    value={social.icon || ""}
-                    onChange={(e) =>
-                      handleSocialChange(index, "icon", e.target.value)
-                    }
-                    placeholder="Optional"
-                    className="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                  <div className="w-full">
+                    <IconPicker
+                      value={social.icon || ""}
+                      onChange={(val) =>
+                        handleSocialChange(index, "icon", val)
+                      }
+                    />
+                  </div>
                 </div>
               </div>
             ))}

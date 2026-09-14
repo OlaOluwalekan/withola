@@ -1,0 +1,157 @@
+
+> admin@1.0.0 dev /app/apps/admin
+> next dev --port 3000
+
+▲ Next.js 16.2.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 519ms
+
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fabout 200 in 671ms (next.js: 222ms, proxy.ts: 10ms, application-code: 438ms)
+[31m[auth][error][0m CallbackRouteError: Read more at https://errors.authjs.dev#callbackrouteerror
+[31m[auth][cause][0m: PrismaClientKnownRequestError:
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$packages$2f$database$2f$src$2f$index$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__["prisma"].user.findUnique()` invocation in
+/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__112ho27._.js:119:204
+
+  116 }).safeParse(credentials);
+  117 if (parsedCredentials.success) {
+  118     const { email, password } = parsedCredentials.data;
+→ 119     const user = await __TURBOPACK__imported__module__$5b$project$5d2f$packages$2f$database$2f$src$2f$index$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__["prisma"].user.findUnique(
+
+    at Jr.handleRequestError (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:65:8286)
+    at Jr.handleAndLogRequestError (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:65:7581)
+    at Jr.request (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:65:7288)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async a (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:99:6862)
+    at async Object.authorize (/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__112ho27._.js:119:34)
+    at async Module.callback (/app/apps/admin/.next/dev/server/chunks/ssr/0k6y_@auth_core_127hc8b._.js:4318:39)
+    at async AuthInternal (/app/apps/admin/.next/dev/server/chunks/ssr/0k6y_@auth_core_127hc8b._.js:5181:24)
+    at async Auth (/app/apps/admin/.next/dev/server/chunks/ssr/0k6y_@auth_core_127hc8b._.js:5403:34)
+    at async signIn (/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__00hqgoy._.js:4175:17)
+    at async authenticate (/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__112ho27._.js:160:9)
+    at async executeActionAndPrepareForRender (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:64:5248)
+    at async /app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:64:1986
+    at async handleAction (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:62:25378)
+    at async renderToHTMLOrFlightImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:69:55630)
+    at async doRender (/app/apps/admin/.next/dev/server/chunks/ssr/0xj__next_dist_0gk5aew._.js:2765:28)
+    at async AppPageRouteModule.handleResponse (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:71:63567)
+    at async handleResponse (/app/apps/admin/.next/dev/server/chunks/ssr/0xj__next_dist_0gk5aew._.js:3040:32)
+    at async Module.handler (/app/apps/admin/.next/dev/server/chunks/ssr/0xj__next_dist_0gk5aew._.js:3443:20)
+    at async DevServer.renderToResponseWithComponentsImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1454:9)
+    at async DevServer.renderPageComponent (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1506:24)
+    at async DevServer.renderToResponseImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1556:32)
+    at async DevServer.pipeImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1043:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/next-server.js:338:17)
+    at async DevServer.handleRequestImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:934:17)
+    at async /app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/dev/next-dev-server.js:394:20
+    at async Span.traceAsyncFn (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/trace/trace.js:164:20)
+    at async DevServer.handleRequest (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/dev/next-dev-server.js:390:24)
+    at async invokeRender (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/router-server.js:253:21)
+    at async handleRequest (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/router-server.js:452:24)
+    at async requestHandlerImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/router-server.js:501:13)
+    at async Server.requestListener (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/start-server.js:225:13)
+[31m[auth][details][0m: {
+  "provider": "credentials"
+}
+ POST /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fabout 200 in 280ms (next.js: 6ms, proxy.ts: 17ms, application-code: 256ms)
+  └─ ƒ authenticate(undefined, {}) in 160ms app/actions/auth.ts
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fabout 200 in 109ms (next.js: 5ms, proxy.ts: 9ms, application-code: 95ms)
+[31m[auth][error][0m CallbackRouteError: Read more at https://errors.authjs.dev#callbackrouteerror
+[31m[auth][cause][0m: PrismaClientKnownRequestError:
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$packages$2f$database$2f$src$2f$index$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__["prisma"].user.findUnique()` invocation in
+/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__112ho27._.js:119:204
+
+  116 }).safeParse(credentials);
+  117 if (parsedCredentials.success) {
+  118     const { email, password } = parsedCredentials.data;
+→ 119     const user = await __TURBOPACK__imported__module__$5b$project$5d2f$packages$2f$database$2f$src$2f$index$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__["prisma"].user.findUnique(
+
+    at Jr.handleRequestError (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:65:8286)
+    at Jr.handleAndLogRequestError (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:65:7581)
+    at Jr.request (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:65:7288)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async a (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:99:6862)
+    at async Object.authorize (/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__112ho27._.js:119:34)
+    at async Module.callback (/app/apps/admin/.next/dev/server/chunks/ssr/0k6y_@auth_core_127hc8b._.js:4318:39)
+    at async AuthInternal (/app/apps/admin/.next/dev/server/chunks/ssr/0k6y_@auth_core_127hc8b._.js:5181:24)
+    at async Auth (/app/apps/admin/.next/dev/server/chunks/ssr/0k6y_@auth_core_127hc8b._.js:5403:34)
+    at async signIn (/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__00hqgoy._.js:4175:17)
+    at async authenticate (/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__112ho27._.js:160:9)
+    at async executeActionAndPrepareForRender (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:64:5248)
+    at async /app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:64:1986
+    at async handleAction (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:62:25378)
+    at async renderToHTMLOrFlightImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:69:55630)
+    at async doRender (/app/apps/admin/.next/dev/server/chunks/ssr/0xj__next_dist_0gk5aew._.js:2765:28)
+    at async AppPageRouteModule.handleResponse (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:71:63567)
+    at async handleResponse (/app/apps/admin/.next/dev/server/chunks/ssr/0xj__next_dist_0gk5aew._.js:3040:32)
+    at async Module.handler (/app/apps/admin/.next/dev/server/chunks/ssr/0xj__next_dist_0gk5aew._.js:3443:20)
+    at async DevServer.renderToResponseWithComponentsImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1454:9)
+    at async DevServer.renderPageComponent (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1506:24)
+    at async DevServer.renderToResponseImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1556:32)
+    at async DevServer.pipeImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1043:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/next-server.js:338:17)
+    at async DevServer.handleRequestImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:934:17)
+    at async /app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/dev/next-dev-server.js:394:20
+    at async Span.traceAsyncFn (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/trace/trace.js:164:20)
+    at async DevServer.handleRequest (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/dev/next-dev-server.js:390:24)
+    at async invokeRender (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/router-server.js:253:21)
+    at async handleRequest (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/router-server.js:452:24)
+    at async requestHandlerImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/router-server.js:501:13)
+    at async Server.requestListener (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/start-server.js:225:13)
+[31m[auth][details][0m: {
+  "provider": "credentials"
+}
+ POST /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fabout 200 in 53ms (next.js: 9ms, proxy.ts: 10ms, application-code: 34ms)
+  └─ ƒ authenticate(undefined, {}) in 14ms app/actions/auth.ts
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fabout 200 in 82ms (next.js: 5ms, proxy.ts: 6ms, application-code: 71ms)
+[31m[auth][error][0m CallbackRouteError: Read more at https://errors.authjs.dev#callbackrouteerror
+[31m[auth][cause][0m: PrismaClientKnownRequestError:
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$packages$2f$database$2f$src$2f$index$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__["prisma"].user.findUnique()` invocation in
+/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__112ho27._.js:119:204
+
+  116 }).safeParse(credentials);
+  117 if (parsedCredentials.success) {
+  118     const { email, password } = parsedCredentials.data;
+→ 119     const user = await __TURBOPACK__imported__module__$5b$project$5d2f$packages$2f$database$2f$src$2f$index$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__["prisma"].user.findUnique(
+
+    at Jr.handleRequestError (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:65:8286)
+    at Jr.handleAndLogRequestError (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:65:7581)
+    at Jr.request (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:65:7288)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async a (/app/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react-dom@19.2.3_@types+react@19.2.17__@types+_0ef335556f2cfc7b686fb0b9fedfaa4e/node_modules/@prisma/client/runtime/client.js:99:6862)
+    at async Object.authorize (/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__112ho27._.js:119:34)
+    at async Module.callback (/app/apps/admin/.next/dev/server/chunks/ssr/0k6y_@auth_core_127hc8b._.js:4318:39)
+    at async AuthInternal (/app/apps/admin/.next/dev/server/chunks/ssr/0k6y_@auth_core_127hc8b._.js:5181:24)
+    at async Auth (/app/apps/admin/.next/dev/server/chunks/ssr/0k6y_@auth_core_127hc8b._.js:5403:34)
+    at async signIn (/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__00hqgoy._.js:4175:17)
+    at async authenticate (/app/apps/admin/.next/dev/server/chunks/ssr/[root-of-the-server]__112ho27._.js:160:9)
+    at async executeActionAndPrepareForRender (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:64:5248)
+    at async /app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:64:1986
+    at async handleAction (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:62:25378)
+    at async renderToHTMLOrFlightImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:69:55630)
+    at async doRender (/app/apps/admin/.next/dev/server/chunks/ssr/0xj__next_dist_0gk5aew._.js:2765:28)
+    at async AppPageRouteModule.handleResponse (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:71:63567)
+    at async handleResponse (/app/apps/admin/.next/dev/server/chunks/ssr/0xj__next_dist_0gk5aew._.js:3040:32)
+    at async Module.handler (/app/apps/admin/.next/dev/server/chunks/ssr/0xj__next_dist_0gk5aew._.js:3443:20)
+    at async DevServer.renderToResponseWithComponentsImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1454:9)
+    at async DevServer.renderPageComponent (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1506:24)
+    at async DevServer.renderToResponseImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1556:32)
+    at async DevServer.pipeImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:1043:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/next-server.js:338:17)
+    at async DevServer.handleRequestImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/base-server.js:934:17)
+    at async /app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/dev/next-dev-server.js:394:20
+    at async Span.traceAsyncFn (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/trace/trace.js:164:20)
+    at async DevServer.handleRequest (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/dev/next-dev-server.js:390:24)
+    at async invokeRender (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/router-server.js:253:21)
+    at async handleRequest (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/router-server.js:452:24)
+    at async requestHandlerImpl (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/router-server.js:501:13)
+    at async Server.requestListener (/app/node_modules/.pnpm/next@16.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/server/lib/start-server.js:225:13)
+[31m[auth][details][0m: {
+  "provider": "credentials"
+}
+ POST /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fabout 200 in 42ms (next.js: 4ms, proxy.ts: 12ms, application-code: 26ms)
+  └─ ƒ authenticate(undefined, {}) in 13ms app/actions/auth.ts
+/app/apps/admin:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  admin@1.0.0 dev: `next dev --port 3000`
+Command failed with signal "SIGTERM"
+[?25h

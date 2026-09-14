@@ -21,8 +21,9 @@ const allIconNames = Object.keys(LucideIcons).filter(
 
 export function IconPicker({ value, onChange }: IconPickerProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<"emoji" | "lucide">("emoji");
+  const [activeTab, setActiveTab] = useState<"emoji" | "lucide" | "url">("emoji");
   const [search, setSearch] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const pickerRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
 
@@ -93,6 +94,13 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
             </button>
             <button
               type="button"
+              onClick={() => setActiveTab("url")}
+              className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-colors ${activeTab === "url" ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm" : "text-gray-500 hover:text-gray-900 dark:hover:text-white"}`}
+            >
+              Image URL
+            </button>
+            <button
+              type="button"
               onClick={() => setIsOpen(false)}
               className="p-1.5 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md transition-colors"
             >
@@ -114,7 +122,7 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
                   backgroundColor: "transparent",
                 }}
               />
-            ) : (
+            ) : activeTab === "lucide" ? (
               <div className="flex flex-col h-full bg-white dark:bg-gray-900">
                 <div className="p-3 border-b dark:border-gray-800 shrink-0 relative bg-white dark:bg-gray-900 z-10">
                   <Search className="w-4 h-4 absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -150,6 +158,34 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
                     </p>
                   )}
                 </div>
+              </div>
+            ) : (
+              <div className="flex flex-col h-full p-4 bg-white dark:bg-gray-900 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Image URL
+                  </label>
+                  <input
+                    type="url"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    placeholder="https://example.com/image.png"
+                    className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-800 border dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (imageUrl) {
+                      onChange(imageUrl);
+                      setIsOpen(false);
+                      setImageUrl("");
+                    }
+                  }}
+                  className="w-full py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                >
+                  Apply
+                </button>
               </div>
             )}
           </div>
