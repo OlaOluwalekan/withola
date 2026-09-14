@@ -20,19 +20,25 @@ const projectSchema = z.object({
 
 export async function createProject(formData: FormData) {
   const data = Object.fromEntries(formData.entries());
-  
+
   let tags: string[] = [];
   let technologies: string[] = [];
   let screenShots: string[] = [];
-  let isFeatured = data.isFeatured === "true";
-  
+  const isFeatured = data.isFeatured === "true";
+
   try {
     tags = JSON.parse((data.tags as string) || "[]");
     technologies = JSON.parse((data.technologies as string) || "[]");
     screenShots = JSON.parse((data.screenShots as string) || "[]");
   } catch (e) {}
-  
-  const parsed = projectSchema.safeParse({ ...data, tags, technologies, screenShots, isFeatured });
+
+  const parsed = projectSchema.safeParse({
+    ...data,
+    tags,
+    technologies,
+    screenShots,
+    isFeatured,
+  });
 
   if (!parsed.success) {
     return { error: parsed.error.flatten().fieldErrors };
@@ -48,19 +54,25 @@ export async function createProject(formData: FormData) {
 
 export async function updateProject(id: string, formData: FormData) {
   const data = Object.fromEntries(formData.entries());
-  
+
   let tags: string[] = [];
   let technologies: string[] = [];
   let screenShots: string[] = [];
-  let isFeatured = data.isFeatured === "true";
-  
+  const isFeatured = data.isFeatured === "true";
+
   try {
     tags = JSON.parse((data.tags as string) || "[]");
     technologies = JSON.parse((data.technologies as string) || "[]");
     screenShots = JSON.parse((data.screenShots as string) || "[]");
   } catch (e) {}
 
-  const parsed = projectSchema.safeParse({ ...data, tags, technologies, screenShots, isFeatured });
+  const parsed = projectSchema.safeParse({
+    ...data,
+    tags,
+    technologies,
+    screenShots,
+    isFeatured,
+  });
 
   if (!parsed.success) {
     return { error: parsed.error.flatten().fieldErrors };

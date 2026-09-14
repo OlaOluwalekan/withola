@@ -92,3 +92,13 @@ model Message {
   isRead      Boolean  @default(false)
   createdAt   DateTime @default(now())
 }
+
+model AboutMe {
+  id        String   @id @default(cuid())
+  about     String   @db.Text
+  emails    String[]
+  phones    String[]
+  socials   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
