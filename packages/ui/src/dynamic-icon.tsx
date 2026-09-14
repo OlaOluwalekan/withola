@@ -17,6 +17,21 @@ export function DynamicIcon({ icon, className = "w-6 h-6" }: DynamicIconProps) {
     }
   }
 
+  // Check if icon is a valid URL
+  try {
+    new URL(icon);
+    return (
+      <img
+        src={icon}
+        alt="Icon"
+        className={className}
+        style={{ objectFit: "contain" }}
+      />
+    );
+  } catch {
+    // Not a valid URL, continue
+  }
+
   // Render as emoji or text
   return (
     <span
