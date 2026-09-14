@@ -1,4 +1,4 @@
-import { Project, Skill, WorkExperience } from "@repo/database";
+import { Project, Skill, WorkExperience, AboutMe } from "@repo/database";
 
 export type ThemeType = "light" | "dark";
 
@@ -12,4 +12,5 @@ export interface StoreValues {
   storeProjects: Project[] | null;
   storeSkills: Skill[] | null;
   storeWorkExperiences: WorkExperience[] | null;
+  storeAboutMe: AboutMe | null;
 }

@@ -8,11 +8,12 @@ import {
   useState,
 } from "react";
 import { StoreValues } from "../types/store.interface";
-import { Project, Skill, WorkExperience } from "@repo/database";
+import { Project, Skill, WorkExperience, AboutMe } from "@repo/database";
 import { handleScrollHelper } from "../lib/store.lib";
 import { getProjects } from "../models/projects";
 import { getSkills } from "../models/skills";
 import { getWorkExperiences } from "../models/experience";
+import { getAboutMe } from "../models/about";
 
 const StoreContext = createContext<StoreValues | null>(null);
 
@@ -34,13 +35,15 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
   const [storeWorkExperiences, setStoreWorkExperiences] = useState<
     WorkExperience[] | null
   >([]);
+  const [storeAboutMe, setStoreAboutMe] = useState<AboutMe | null>(null);
 
   const fetchStoreData = async () => {
-    const [projectsResponse, skillResponse, workExperienceResponse] =
+    const [projectsResponse, skillResponse, workExperienceResponse, aboutMeResponse] =
       await Promise.allSettled([
         getProjects(),
         getSkills(),
         getWorkExperiences(),
+        getAboutMe(),
       ]);
 
     if (projectsResponse.status === "fulfilled") {
@@ -70,6 +73,15 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
       }
     } else {
       setStoreWorkExperiences(null);
+    }
+
+    if (aboutMeResponse.status === "fulfilled") {
+      const aboutMeResult = aboutMeResponse.value;
+      if (aboutMeResult.success && aboutMeResult.data) {
+        setStoreAboutMe(aboutMeResult.data.aboutMe ?? null);
+      }
+    } else {
+      setStoreAboutMe(null);
     }
   };
 
@@ -106,6 +118,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         storeProjects,
         storeSkills,
         storeWorkExperiences,
+        storeAboutMe,
       }}
     >
       {children}

@@ -10,12 +10,12 @@ import {
 } from "lucide-react";
 import { useRef, useState } from "react";
 import {
-  aboutResponse,
-  contactResponse,
   errorResponse,
   getProjectsCommandResponse,
   getSkillsCommandResponse,
   getWorkExperienceCommandResponse,
+  getAboutCommandResponse,
+  getContactCommandResponse,
   helpResponse,
   neoFetchResponse,
   quickCommands,
@@ -43,7 +43,7 @@ const Terminal3D = ({ isFullScreen = false }: TerminalProps) => {
   const [inputValue, setInputValue] = useState("");
   const terminalEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { storeProjects, storeSkills, storeWorkExperiences } =
+  const { storeProjects, storeSkills, storeWorkExperiences, storeAboutMe } =
     useGlobalContext();
   const router = useRouter();
 
@@ -64,10 +64,10 @@ const Terminal3D = ({ isFullScreen = false }: TerminalProps) => {
         newLogs.push(neoFetchResponse);
         break;
       case "about":
-        newLogs.push(aboutResponse);
+        newLogs.push(getAboutCommandResponse(storeAboutMe));
         break;
       case "contact":
-        newLogs.push(contactResponse);
+        newLogs.push(getContactCommandResponse(storeAboutMe));
         break;
       case "projects":
         newLogs.push(getProjectsCommandResponse(storeProjects));

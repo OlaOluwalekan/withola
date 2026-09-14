@@ -1,4 +1,4 @@
-import { Project, Skill, WorkExperience } from "@repo/database";
+import { Project, Skill, WorkExperience, AboutMe } from "@repo/database";
 import { LogLine } from "../types/terminal.interface";
 
 export const quickCommands = [
@@ -39,16 +39,41 @@ export const neoFetchResponse: LogLine = {
   type: "success",
 };
 
-export const aboutResponse: LogLine = {
-  // TODO: Replace with server response
-  text: `ABOUT OLALEKAN BELLO:\n=====================\nI am a Frontend & Full-Stack Engineer with over 4 years of professional experience delivering scalable, production-grade solutions. Originally, I graduated with a B.Eng. in Civil Engineering from the University of Ilorin in 2018. Driven by a deep passion for computing systems, I self-taught software architecture, structuralizing elegant web systems instead of physical buildings.\n\nMy primary stack is TypeScript/JavaScript (React, Next.js, Node.js). I excel at creating reactive client experiences (such as advertiser dashboards and real-time sockets) and securing them with backend API structures using Express and FastAPI. I love performance auditing, unit testing, and building custom developer CLI engines.`,
-  type: "output",
+export const getAboutCommandResponse = (storeAboutMe: AboutMe | null): LogLine => {
+  if (storeAboutMe) {
+    return {
+      text: `ABOUT OLALEKAN BELLO:\n=====================\n${storeAboutMe.about}`,
+      type: "output",
+    };
+  }
+  return {
+    text: "Error fetching my about information. Please try again later.",
+    type: "error",
+  };
 };
 
-export const contactResponse: LogLine = {
-  // TODO: Replace with server response
-  text: `ESTABLISH CONNECTION:\n=====================\n• Email:    olalekanbello534@gmail.com\n• Phone:    +2348142659447\n• GitHub:   github.com/OlaOluwalekan\n• LinkedIn: linkedin.com/in/olaoluwalekanmi/\n• Twitter:  x.com/OlaOluwalekanMi\n\nFeel free to reach out via email or fill in the contact section below.`,
-  type: "success",
+export const getContactCommandResponse = (storeAboutMe: AboutMe | null): LogLine => {
+  if (storeAboutMe) {
+    const emailsStr = storeAboutMe.emails.map(email => `• Email:    ${email}`).join("\n");
+    const phonesStr = storeAboutMe.phones.map(phone => `• Phone:    ${phone}`).join("\n");
+
+    // Parse social media object (assuming it's a JSON object like Record<string, string>)
+    let socialsStr = "";
+    if (storeAboutMe.socials && typeof storeAboutMe.socials === 'object') {
+      socialsStr = Object.entries(storeAboutMe.socials)
+        .map(([key, value]) => `• ${key.charAt(0).toUpperCase() + key.slice(1)}:   ${value}`)
+        .join("\n");
+    }
+
+    return {
+      text: `ESTABLISH CONNECTION:\n=====================\n${emailsStr}\n${phonesStr}\n${socialsStr}\n\nFeel free to reach out via email or fill in the contact section below.`,
+      type: "success",
+    };
+  }
+  return {
+    text: "Error fetching contact information. Please try again later.",
+    type: "error",
+  };
 };
 
 export const getProjectsCommandResponse = (storeProjects: Project[] | null) => {
