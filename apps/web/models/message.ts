@@ -1,13 +1,13 @@
-'use server'
+"use server";
 
-import { Message, prisma } from '@repo/database'
-import { ResponseStructure } from '../types/general.interface'
+import { Message, prisma } from "@repo/database";
+import { ResponseStructure } from "../types/general.interface";
 
 interface MessagePayload {
-  email: string
-  name: string
-  subject: string
-  message: string
+  email: string;
+  name: string;
+  subject: string;
+  message: string;
 }
 
 export const createMessage = async ({
@@ -24,12 +24,12 @@ export const createMessage = async ({
         subject,
         content,
       },
-    })
+    });
 
-    return { success: true, error: null, data: { message } }
+    return { success: true, error: null, data: { message } };
   } catch (error) {
-    console.log('Send Message ==>', error)
+    console.log("Send Message ==>", error);
 
-    return { success: false, error: 'Error sending message', data: null }
+    return { success: false, error: "Error sending message", data: null };
   }
-}
+};

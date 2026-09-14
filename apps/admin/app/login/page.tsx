@@ -13,7 +13,7 @@ export default function LoginPage() {
     <div className="flex h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="w-full max-w-md p-8 space-y-6 bg-white dark:bg-black rounded-xl shadow-lg border border-gray-200 dark:border-gray-800">
         <h1 className="text-2xl font-bold text-center">Admin Login</h1>
-        
+
         <form action={formAction} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
@@ -35,7 +35,7 @@ export default function LoginPage() {
               placeholder="••••••••"
             />
           </div>
-          
+
           <button
             type="submit"
             disabled={isPending}
@@ -43,9 +43,11 @@ export default function LoginPage() {
           >
             {isPending ? "Logging in..." : "Login"}
           </button>
-          
+
           {errorMessage && (
-            <p className="text-sm text-red-500 text-center mt-2">{errorMessage}</p>
+            <p className="text-sm text-red-500 text-center mt-2">
+              {errorMessage}
+            </p>
           )}
         </form>
       </div>

@@ -1,19 +1,19 @@
-import * as LucideIcons from 'lucide-react'
+import * as LucideIcons from "lucide-react";
 
 interface DynamicIconProps {
-  icon: string
-  className?: string
+  icon: string;
+  className?: string;
 }
 
-export function DynamicIcon({ icon, className = 'w-6 h-6' }: DynamicIconProps) {
-  if (!icon) return null
+export function DynamicIcon({ icon, className = "w-6 h-6" }: DynamicIconProps) {
+  if (!icon) return null;
 
-  if (icon.startsWith('lucide:')) {
-    const iconName = icon.replace('lucide:', '')
-    const IconComponent = (LucideIcons as Record<string, any>)[iconName]
+  if (icon.startsWith("lucide:")) {
+    const iconName = icon.replace("lucide:", "");
+    const IconComponent = (LucideIcons as Record<string, any>)[iconName];
 
     if (IconComponent) {
-      return <IconComponent className={className} />
+      return <IconComponent className={className} />;
     }
   }
 
@@ -22,12 +22,12 @@ export function DynamicIcon({ icon, className = 'w-6 h-6' }: DynamicIconProps) {
     <span
       className={className}
       style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       {icon}
     </span>
-  )
+  );
 }

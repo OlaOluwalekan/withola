@@ -11,35 +11,31 @@
 
 // Mirrors: enum SkillCategory in schema.prisma
 export const SKILL_CATEGORIES = [
-  'PROGRAMMING_LANGUAGE',
-  'FRONTEND',
-  'BACKEND',
-  'DATABASE',
-  'MOBILE',
-  'DEVOPS',
-  'DESIGN',
-  'SOFT_SKILL',
-  'OTHER',
-] as const
+  "PROGRAMMING_LANGUAGE",
+  "FRONTEND",
+  "BACKEND",
+  "DATABASE",
+  "MOBILE",
+  "DEVOPS",
+  "DESIGN",
+  "SOFT_SKILL",
+  "OTHER",
+] as const;
 
-export type SkillCategory = (typeof SKILL_CATEGORIES)[number]
+export type SkillCategory = (typeof SKILL_CATEGORIES)[number];
 
 // Mirrors: enum WorkLocationType in schema.prisma
-export const WORK_LOCATION_TYPES = [
-  'REMOTE',
-  'ONSITE',
-  'HYBRID',
-] as const
+export const WORK_LOCATION_TYPES = ["REMOTE", "ONSITE", "HYBRID"] as const;
 
-export type WorkLocationType = (typeof WORK_LOCATION_TYPES)[number]
+export type WorkLocationType = (typeof WORK_LOCATION_TYPES)[number];
 
 // Mirrors: enum WorkType in schema.prisma
 export const WORK_TYPES = [
-  'FULL_TIME',
-  'PART_TIME',
-  'CONTRACT',
-  'FREELANCE',
-  'INTERNSHIP',
-] as const
+  "FULL_TIME",
+  "PART_TIME",
+  "CONTRACT",
+  "FREELANCE",
+  "INTERNSHIP",
+] as const;
 
-export type WorkType = (typeof WORK_TYPES)[number]
+export type WorkType = (typeof WORK_TYPES)[number];

@@ -1,7 +1,7 @@
-'use server'
+"use server";
 
-import { prisma, WorkExperience } from '@repo/database'
-import { ResponseStructure } from '../types/general.interface'
+import { prisma, WorkExperience } from "@repo/database";
+import { ResponseStructure } from "../types/general.interface";
 
 export const getWorkExperiences = async (): Promise<
   ResponseStructure<WorkExperience[]>
@@ -10,18 +10,18 @@ export const getWorkExperiences = async (): Promise<
     const workExperiences = await prisma.workExperience.findMany({
       orderBy: {
         endDate: {
-          sort: 'desc',
-          nulls: 'first',
+          sort: "desc",
+          nulls: "first",
         },
       },
-    })
+    });
 
-    return { success: true, error: null, data: { workExperiences } }
+    return { success: true, error: null, data: { workExperiences } };
   } catch (error) {
     return {
       success: false,
-      error: 'Error fetching work experiences',
+      error: "Error fetching work experiences",
       data: null,
-    }
+    };
   }
-}
+};
