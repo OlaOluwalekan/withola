@@ -50,6 +50,8 @@ model Project {
   majorFeature   String
   description    String
   readme         String   @db.Text
+  aiSummary      String?  @db.Text
+  keyHighlights  String[]
   sourceCodeLink String?
   liveUrlLink    String?
   icon           String

@@ -2,8 +2,9 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { createProject, updateProject } from "../actions/projects";
+import { generateAiSummary } from "../actions/ai";
 import { useRouter } from "next/navigation";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, RefreshCw } from "lucide-react";
 import { FileUpload } from "../../components/file-upload";
 import { RichTextEditor } from "../../components/rich-text-editor";
 import { IconPicker } from "../../components/icon-picker";
@@ -20,10 +21,15 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
   const [technologies, setTechnologies] = useState<string[]>(
     initialData?.technologies || [],
   );
+  const [keyHighlights, setKeyHighlights] = useState<string[]>(
+    initialData?.keyHighlights || [],
+  );
   const [screenShots, setScreenShots] = useState<string[]>(
     initialData?.screenShots || [],
   );
   const [readme, setReadme] = useState<string>(initialData?.readme || "");
+  const [aiSummary, setAiSummary] = useState<string>(initialData?.aiSummary || "");
+  const [isGeneratingAi, setIsGeneratingAi] = useState(false);
   const [isFeatured, setIsFeatured] = useState<boolean>(
     initialData?.isFeatured || false,
   );
@@ -40,8 +46,13 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
         "technologies",
         JSON.stringify(technologies.filter((t) => t.trim() !== "")),
       );
+      formData.set(
+        "keyHighlights",
+        JSON.stringify(keyHighlights.filter((k) => k.trim() !== "")),
+      );
       formData.set("screenShots", JSON.stringify(screenShots));
       formData.set("readme", readme);
+      formData.set("aiSummary", aiSummary);
       formData.set("isFeatured", isFeatured.toString());
 
       try {
@@ -65,6 +76,28 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
     },
     undefined,
   );
+
+  const handleGenerateAiSummary = async () => {
+    if (!readme || readme.length < 200) {
+      toast.error("Readme must be at least 200 characters to generate an AI summary.");
+      return;
+    }
+
+    setIsGeneratingAi(true);
+    try {
+      const result = await generateAiSummary(readme);
+      if (result.error) {
+        toast.error(result.error);
+      } else if (result.summary) {
+        setAiSummary(result.summary);
+        toast.success("AI summary generated successfully.");
+      }
+    } catch (error) {
+      toast.error("Failed to generate AI summary.");
+    } finally {
+      setIsGeneratingAi(false);
+    }
+  };
 
   // Cast error to field-error shape safely; the catch branch returns { server: any }
   // which causes a union type conflict, so we extract field errors once here.
@@ -252,6 +285,45 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div>
+        <label className="block text-sm font-medium mb-2">Key Highlights</label>
+        <div className="space-y-2">
+          {keyHighlights.map((highlight, i) => (
+            <div key={i} className="flex gap-2">
+              <input
+                type="text"
+                value={highlight}
+                onChange={(e) => {
+                  const newHighlights = [...keyHighlights];
+                  newHighlights[i] = e.target.value;
+                  setKeyHighlights(newHighlights);
+                }}
+                className="flex-1 px-3 py-1 border rounded-md dark:bg-gray-800 dark:border-gray-700"
+                placeholder="e.g. Generated 10k MRR"
+              />
+              <button
+                type="button"
+                onClick={() =>
+                  setKeyHighlights(
+                    keyHighlights.filter((_, index) => index !== i),
+                  )
+                }
+                className="p-1 text-red-500 hover:bg-red-50 rounded-md"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => setKeyHighlights([...keyHighlights, ""])}
+            className="text-sm text-blue-600 flex items-center gap-1"
+          >
+            <Plus className="w-4 h-4" /> Add Highlight
+          </button>
+        </div>
+      </div>
+
+      <div>
         <label className="block text-sm font-medium mb-2">Screenshots</label>
         <FileUpload
           value={screenShots}
@@ -277,6 +349,33 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
         <RichTextEditor value={readme} onChange={setReadme} />
         {fieldErrors?.readme && (
           <p className="text-red-500 text-sm mt-1">{fieldErrors.readme[0]}</p>
+        )}
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <label className="block text-sm font-medium">AI Summary</label>
+          <button
+            type="button"
+            onClick={handleGenerateAiSummary}
+            disabled={isGeneratingAi || readme.length < 200}
+            className="text-sm flex items-center gap-1 text-blue-600 hover:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            title="Generate AI Summary from Readme (Requires at least 200 chars)"
+          >
+            <RefreshCw className={`w-4 h-4 ${isGeneratingAi ? "animate-spin" : ""}`} />
+            {isGeneratingAi ? "Generating..." : "Generate AI Summary"}
+          </button>
+        </div>
+        <textarea
+          name="aiSummary"
+          value={aiSummary}
+          onChange={(e) => setAiSummary(e.target.value)}
+          rows={3}
+          className="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-700"
+          placeholder="AI generated summary will appear here..."
+        ></textarea>
+        {fieldErrors?.aiSummary && (
+          <p className="text-red-500 text-sm mt-1">{fieldErrors.aiSummary[0]}</p>
         )}
       </div>
 
