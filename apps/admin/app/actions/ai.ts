@@ -26,7 +26,7 @@ export async function generateAiSummary(
     const model = genAI.getGenerativeModel({ model: 'gemini-3.5-flash-lite' })
 
     const prompt = `
-      Please provide a plain text summary of the following project README content.
+      Please provide a plain text architecture summary of the following project README content.
       The summary must be between 200 and 400 characters long.
       Do NOT use any markdown formatting or rich text (no asterisks, no bolding, no lists, just plain text).
 
