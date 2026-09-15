@@ -1,24 +1,24 @@
-import { Project, Skill, WorkExperience, AboutMe } from "@repo/database";
-import { LogLine } from "../types/terminal.interface";
+import { Project, Skill, WorkExperience, AboutMe } from '@repo/database'
+import { LogLine } from '../types/terminal.interface'
 
 export const quickCommands = [
-  "neofetch",
-  "about",
-  "skills",
-  "projects",
-  "experience",
-  "contact",
-];
+  'neofetch',
+  'about',
+  'skills',
+  'projects',
+  'experience',
+  'contact',
+]
 
 export const helpResponse: LogLine = {
   text: `Available commands:\n  neofetch    - Show developer details & workspace metadata\n  about       - Read Olalekan\'s story (transition from Civil Engineering)\n  skills      - List core engineering technologies & competencies\n  projects    - Show catalog of engineering projects\n  experience  - Print employment history logs\n  contact     - Reveal email, social links & terminal parameters\n  clear       - Wipe terminal logs`,
-  type: "output",
-};
+  type: 'output',
+}
 
 export const errorResponse = (cmd: string): LogLine => ({
   text: `Command not found: "${cmd}". Type "help" to view diagnostic codes.`,
-  type: "error",
-});
+  type: 'error',
+})
 
 export const neoFetchResponse: LogLine = {
   text: `      .-::::::::-.             olalekan@withola-dev-core
@@ -36,144 +36,158 @@ export const neoFetchResponse: LogLine = {
            -::::::::::::::::::-         Database: PostgreSQL / MongoDB Core
              -::::::::::::::-           Location: Lagos, Nigeria (GMT+1)
                .-::::::::-.             Status: Open to Full-time & Lead Positions`,
-  type: "success",
-};
+  type: 'success',
+}
 
-export const getAboutCommandResponse = (storeAboutMe: AboutMe | null): LogLine => {
+export const getAboutCommandResponse = (
+  storeAboutMe: AboutMe | null,
+): LogLine => {
   if (storeAboutMe) {
     return {
       text: `ABOUT OLALEKAN BELLO:\n=====================\n${storeAboutMe.about}`,
-      type: "output",
-    };
+      type: 'output',
+    }
   }
   return {
-    text: "Error fetching my about information. Please try again later.",
-    type: "error",
-  };
-};
+    text: 'Error fetching my about information. Please try again later.',
+    type: 'error',
+  }
+}
 
-export const getContactCommandResponse = (storeAboutMe: AboutMe | null): LogLine => {
+export const getContactCommandResponse = (
+  storeAboutMe: AboutMe | null,
+): LogLine => {
   if (storeAboutMe) {
-    const emailsStr = storeAboutMe.emails.map(email => `• Email:    ${email}`).join("\n");
-    const phonesStr = storeAboutMe.phones.map(phone => `• Phone:    ${phone}`).join("\n");
+    const emailsStr = storeAboutMe.emails
+      .map((email) => `• Email:    ${email}`)
+      .join('\n')
+    const phonesStr = storeAboutMe.phones
+      .map((phone) => `• Phone:    ${phone}`)
+      .join('\n')
 
     // Parse social media object (assuming it's a JSON object like Record<string, string>)
-    let socialsStr = "";
-    if (storeAboutMe.socials && typeof storeAboutMe.socials === 'object') {
-      socialsStr = Object.entries(storeAboutMe.socials)
-        .map(([key, value]) => `• ${key.charAt(0).toUpperCase() + key.slice(1)}:   ${value}`)
-        .join("\n");
+    let socialsStr = ''
+    if (storeAboutMe.socials && Array.isArray(storeAboutMe.socials)) {
+      const socialsFlatArr = storeAboutMe.socials.map((social, index) => {
+        const socialObj: { name: string; value: string } = social as {
+          name: string
+          value: string
+        }
+        return `[0${index + 1}] ${socialObj.name} => ${socialObj.value}`
+      })
+
+      socialsStr = socialsFlatArr.join('\n')
     }
 
     return {
-      text: `ESTABLISH CONNECTION:\n=====================\n${emailsStr}\n${phonesStr}\n${socialsStr}\n\nFeel free to reach out via email or fill in the contact section below.`,
-      type: "success",
-    };
+      text: `ESTABLISH CONNECTION:\n=====================\n${emailsStr}\n${phonesStr}\nLET'S CONNECT ON SOCIALS\n${socialsStr}\n\nFeel free to reach out via email or fill in the contact section below.`,
+      type: 'success',
+    }
   }
   return {
-    text: "Error fetching contact information. Please try again later.",
-    type: "error",
-  };
-};
+    text: 'Error fetching contact information. Please try again later.',
+    type: 'error',
+  }
+}
 
 export const getProjectsCommandResponse = (storeProjects: Project[] | null) => {
-  let projectsCommandResponse: LogLine = { text: "", type: "output" };
+  let projectsCommandResponse: LogLine = { text: '', type: 'output' }
   if (storeProjects) {
     if (storeProjects.length === 0) {
       projectsCommandResponse = {
-        text: "The project inventory is currently empty",
-        type: "output",
-      };
+        text: 'The project inventory is currently empty',
+        type: 'output',
+      }
     } else {
       const projectString = storeProjects
         .map((project, index) => {
-          return `\n[${index + 1}] ${project.title} - ${project.technologies.join(", ")}`;
+          return `\n[${index + 1}] ${project.title} - ${project.technologies.join(', ')}`
         })
-        .join(" ");
-      const projectText = `NOTABLE PROJECT INDEX:\n======================${projectString}\n\nType 'inspect <project-id>' or click on the Project Cards above to see full layouts.`;
-      projectsCommandResponse = { text: projectText, type: "output" };
+        .join(' ')
+      const projectText = `NOTABLE PROJECT INDEX:\n======================${projectString}\n\nType 'inspect <project-id>' or click on the Project Cards above to see full layouts.`
+      projectsCommandResponse = { text: projectText, type: 'output' }
     }
   } else {
     projectsCommandResponse = {
-      text: "Error fetching my projects. Check the projects section or try again",
-      type: "error",
-    };
+      text: 'Error fetching my projects. Check the projects section or try again',
+      type: 'error',
+    }
   }
 
-  return projectsCommandResponse;
-};
+  return projectsCommandResponse
+}
 
 export const getSkillsCommandResponse = (storeSkills: Skill[] | null) => {
-  let skillCommandResponse: LogLine = { text: "", type: "output" };
+  let skillCommandResponse: LogLine = { text: '', type: 'output' }
   if (storeSkills) {
     if (storeSkills.length === 0) {
-      skillCommandResponse = { text: "No skill saved yet", type: "output" };
+      skillCommandResponse = { text: 'No skill saved yet', type: 'output' }
     } else {
       const skillsString = storeSkills
         .map((skill, index) => {
-          const competency = skill.competency;
-          const competencyInFives = Math.round(competency / 5);
-          let blocks = "";
+          const competency = skill.competency
+          const competencyInFives = Math.round(competency / 5)
+          let blocks = ''
           for (let i = 0; i < competencyInFives; i++) {
-            blocks += "█";
+            blocks += '█'
           }
-          return `\n[${index + 1}] ${skill.name} [${blocks.padEnd(20, "░")}] (${competency}%)`;
+          return `\n[${index + 1}] ${skill.name} [${blocks.padEnd(20, '░')}] (${competency}%)`
         })
-        .join(" ");
-      const skillsText = `CORE TECHNICAL MATRIX:\n======================${skillsString}`;
-      skillCommandResponse = { text: skillsText, type: "output" };
+        .join(' ')
+      const skillsText = `CORE TECHNICAL MATRIX:\n======================${skillsString}`
+      skillCommandResponse = { text: skillsText, type: 'output' }
     }
   } else {
     skillCommandResponse = {
-      text: "Error fetching my skills. check the skill section or try again later",
-      type: "error",
-    };
+      text: 'Error fetching my skills. check the skill section or try again later',
+      type: 'error',
+    }
   }
 
-  return skillCommandResponse;
-};
+  return skillCommandResponse
+}
 
 const formatDate = (dateStr: string | Date | null) => {
   if (!dateStr) {
-    return "Till date";
+    return 'Till date'
   }
-  const date = new Date(dateStr);
+  const date = new Date(dateStr)
   const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-  };
+    year: 'numeric',
+    month: 'long',
+  }
 
-  return new Intl.DateTimeFormat("en-US", options).format(date);
-};
+  return new Intl.DateTimeFormat('en-US', options).format(date)
+}
 
 export const getWorkExperienceCommandResponse = (
   storeWorkExperience: WorkExperience[] | null,
 ) => {
-  let workExperienceCommandResponse: LogLine = { text: "", type: "output" };
+  let workExperienceCommandResponse: LogLine = { text: '', type: 'output' }
 
   if (storeWorkExperience) {
     if (storeWorkExperience.length === 0) {
       workExperienceCommandResponse = {
-        text: "Work experience is currently empty",
-        type: "output",
-      };
+        text: 'Work experience is currently empty',
+        type: 'output',
+      }
     } else {
       const workExperiencesString = storeWorkExperience.map((exp, index) => {
-        return `\n[${index + 1}] ${exp.jobTitle} | ${exp.company} (${formatDate(exp.startDate)} - ${formatDate(exp.endDate)})`;
-      });
-      const workExperienceText = `PROFESSIONAL CHRONOLOGY:\n========================${workExperiencesString}`;
+        return `\n[${index + 1}] ${exp.jobTitle} | ${exp.company} (${formatDate(exp.startDate)} - ${formatDate(exp.endDate)})`
+      })
+      const workExperienceText = `PROFESSIONAL CHRONOLOGY:\n========================${workExperiencesString}`
 
       workExperienceCommandResponse = {
         text: workExperienceText,
-        type: "output",
-      };
+        type: 'output',
+      }
     }
   } else {
     workExperienceCommandResponse = {
-      text: "Error fetching my experiences. check the work experience section or try again later",
-      type: "error",
-    };
+      text: 'Error fetching my experiences. check the work experience section or try again later',
+      type: 'error',
+    }
   }
 
-  return workExperienceCommandResponse;
-};
+  return workExperienceCommandResponse
+}
