@@ -2,10 +2,14 @@ import { prisma } from "@repo/database";
 import { ProjectForm } from "../project-form";
 import { notFound } from "next/navigation";
 
-export default async function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function EditProjectPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const project = await prisma.project.findUnique({
-    where: { id }
+    where: { id },
   });
 
   if (!project) notFound();
