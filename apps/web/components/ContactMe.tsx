@@ -11,8 +11,11 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { createMessage } from "../models/message";
+import { useGlobalContext } from "../providers/store";
 
 const ContactMe = () => {
+  const { storeAboutMe } = useGlobalContext();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -97,37 +100,43 @@ const ContactMe = () => {
             <hr className="border-custom-border transition-colors duration-300" />
 
             <div className="space-y-4" id="contact-params-list">
-              <div className="flex items-center gap-4 text-sm text-custom-primary">
+              <div className="flex items-start gap-4 text-sm text-custom-primary">
                 <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-emerald-400">
                   <Mail className="w-4 h-4" />
                 </div>
-                <div>
+                <div className="flex flex-col gap-1">
                   <h4 className="text-[10px] font-mono text-custom-muted uppercase">
                     Send A Mail
                   </h4>
-                  <a
-                    href="mailto:olalekanbello534@gmail.com"
-                    className="hover:text-emerald-300 transition-colors"
-                  >
-                    olalekanbello534@gmail.com
-                  </a>
+                  {storeAboutMe?.emails?.slice(0, 2).map((email: string, index: number) => (
+                    <a
+                      key={`email-${index}`}
+                      href={`mailto:${email}`}
+                      className="hover:text-emerald-300 transition-colors"
+                    >
+                      {email}
+                    </a>
+                  ))}
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 text-sm text-custom-primary">
+              <div className="flex items-start gap-4 text-sm text-custom-primary">
                 <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 text-blue-400">
                   <Phone className="w-4 h-4" />
                 </div>
-                <div>
+                <div className="flex flex-col gap-1">
                   <h4 className="text-[10px] font-mono text-custom-muted uppercase">
                     Or Dial Me
                   </h4>
-                  <a
-                    href="tel:+2348142659447"
-                    className="hover:text-blue-300 transition-colors"
-                  >
-                    +234 814 265 9447
-                  </a>
+                  {storeAboutMe?.phones?.slice(0, 2).map((phone: string, index: number) => (
+                    <a
+                      key={`phone-${index}`}
+                      href={`tel:${phone}`}
+                      className="hover:text-blue-300 transition-colors"
+                    >
+                      {phone}
+                    </a>
+                  ))}
                 </div>
               </div>
 
