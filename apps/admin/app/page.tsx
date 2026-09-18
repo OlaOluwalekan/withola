@@ -70,7 +70,13 @@ export default async function HomePage() {
         </div>
       </div>
 
-      <div className='flex justify-end'>
+      <div className='flex justify-end gap-2'>
+        <Link
+          href='/resume'
+          className='hover:bg-blue-1000 px-5 py-2 rounded-md cursor-pointer bg-purple-1000'
+        >
+          My Resumes
+        </Link>
         <Link
           href='/resume/build'
           className='bg-blue-1000 px-5 py-2 rounded-md cursor-pointer hover:bg-purple-1000'

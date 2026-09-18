@@ -41,6 +41,14 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Resume {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
 model Project {
   id             String   @id @default(cuid())
   title          String

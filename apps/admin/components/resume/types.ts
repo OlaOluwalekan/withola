@@ -56,15 +56,15 @@ export interface ResumeSelectionState {
   >
 }
 
-export function generateDefaultState(data: {
-  aboutMe: AboutMe | null
-  projects: Project[]
-  skills: Skill[]
-  workExperiences: WorkExperience[]
-}): ResumeSelectionState {
+export function generateDefaultState(data?: {
+  aboutMe?: AboutMe | null
+  projects?: Project[]
+  skills?: Skill[]
+  workExperiences?: WorkExperience[]
+} | null): ResumeSelectionState {
   const state: ResumeSelectionState = {
     aboutMe: {
-      selected: !!data.aboutMe,
+      selected: !!data?.aboutMe,
       fields: {
         about: true,
         emails: true,
@@ -77,7 +77,7 @@ export function generateDefaultState(data: {
     workExperiences: {},
   }
 
-  data.projects.forEach((project) => {
+  data?.projects?.forEach((project) => {
     state.projects[project.id] = {
       selected: project.isFeatured,
       fields: {
@@ -92,7 +92,7 @@ export function generateDefaultState(data: {
     }
   })
 
-  data.skills.forEach((skill) => {
+  data?.skills?.forEach((skill) => {
     state.skills[skill.id] = {
       selected: skill.competency > 2,
       fields: {
@@ -103,7 +103,7 @@ export function generateDefaultState(data: {
     }
   })
 
-  data.workExperiences.forEach((work) => {
+  data?.workExperiences?.forEach((work) => {
     state.workExperiences[work.id] = {
       selected: true,
       fields: {
