@@ -1,13 +1,15 @@
 import { FileText, Moon, Sun } from "lucide-react";
 import { ThemeType } from "../types/store.interface";
 import { socials } from "../data/nav";
+import Link from "next/link";
 
 interface SocialProfileProps {
   theme: ThemeType;
   setTheme: (val: ThemeType) => void;
+  hasResume?: boolean;
 }
 
-const SocialProfile = ({ theme, setTheme }: SocialProfileProps) => {
+const SocialProfile = ({ theme, setTheme, hasResume }: SocialProfileProps) => {
   return (
     <div
       className="hidden md:flex items-center gap-3"
@@ -42,18 +44,16 @@ const SocialProfile = ({ theme, setTheme }: SocialProfileProps) => {
         );
       })}
 
-      <button
-        onClick={() =>
-          alert(
-            "Olalekan Bello's verified PDF Resume can be requested directly via olalekanbello534@gmail.com!",
-          )
-        }
-        className="ml-2 bg-custom-inner hover:bg-custom-card text-custom-secondary hover:text-custom-primary border border-custom-border px-3 py-1.5 rounded-xl text-xs font-mono flex items-center gap-1.5 cursor-pointer transition-colors"
-        id="desktop-link-resume"
-      >
-        <FileText className="w-3.5 h-3.5 text-emerald-400" />
-        <span>Resume</span>
-      </button>
+      {hasResume && (
+        <Link
+          href="/resume"
+          className="ml-2 bg-custom-inner hover:bg-custom-card text-custom-secondary hover:text-custom-primary border border-custom-border px-3 py-1.5 rounded-xl text-xs font-mono flex items-center gap-1.5 cursor-pointer transition-colors"
+          id="desktop-link-resume"
+        >
+          <FileText className="w-3.5 h-3.5 text-emerald-400" />
+          <span>Resume</span>
+        </Link>
+      )}
     </div>
   );
 };

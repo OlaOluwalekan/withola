@@ -113,6 +113,7 @@ const RichTextEditor = ({
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   }, [editor]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onUpload = (result: any) => {
     if (!editor) return;
     const url = result.info.secure_url;

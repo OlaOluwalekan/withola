@@ -6,7 +6,7 @@ import Logo from "./Logo";
 import Navigation from "./Navigation";
 import SocialProfile from "./SocialProfile";
 
-const Header = () => {
+const Header = ({ hasResume }: { hasResume?: boolean }) => {
   const {
     setMobileMenuIsOpen,
     mobileMenuIsOpen,
@@ -40,7 +40,7 @@ const Header = () => {
           scrollToSection={scrollToSection}
         />
 
-        <SocialProfile theme={theme} setTheme={setTheme} />
+        <SocialProfile theme={theme} setTheme={setTheme} hasResume={hasResume} />
 
         <div className="md:hidden flex items-center gap-1.5">
           <button

@@ -1,3 +1,4 @@
+import { getDefaultResume } from "../actions/resume";
 import { Suspense } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -10,14 +11,16 @@ import Skills3D from "../components/Skills3D";
 import WorkExperience from "../components/WorkExperience";
 import ContactMe from "../components/ContactMe";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const resume = await getDefaultResume();
+  const hasResume = !!resume;
   return (
     <div
       className="min-h-screen text-custom-primary bg-custom-bg font-sans selection:bg-emerald-500/20 selection:text-emerald-400 relative transition-colors duration-300"
       id="portfolio-app-root"
     >
-      <Header />
-      <MobileDrawer />
+      <Header hasResume={hasResume} />
+      <MobileDrawer hasResume={hasResume} />
 
       <main
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 space-y-12"

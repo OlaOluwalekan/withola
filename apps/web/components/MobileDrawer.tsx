@@ -4,8 +4,13 @@ import { AnimatePresence, motion } from "motion/react";
 import { useGlobalContext } from "../providers/store";
 import { navItems, socials } from "../data/nav";
 import { FileText } from "lucide-react";
+import Link from "next/link";
 
-const MobileDrawer = () => {
+interface MobileDrawerProps {
+  hasResume?: boolean;
+}
+
+const MobileDrawer = ({ hasResume }: MobileDrawerProps) => {
   const { mobileMenuIsOpen, setMobileMenuIsOpen, activeSection } =
     useGlobalContext();
 
@@ -65,18 +70,16 @@ const MobileDrawer = () => {
                   );
                 })}
               </div>
-              <button
-                onClick={() =>
-                  alert(
-                    "Olalekan Bello's verified PDF Resume can be requested directly via olalekanbello534@gmail.com!",
-                  )
-                }
-                className="bg-custom-inner text-custom-secondary border border-custom-border px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 cursor-pointer transition-colors duration-300"
-                id="mobile-link-resume"
-              >
-                <FileText className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Resume</span>
-              </button>
+              {hasResume && (
+                <Link
+                  href="/resume"
+                  className="bg-custom-inner text-custom-secondary border border-custom-border px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 cursor-pointer transition-colors duration-300"
+                  id="mobile-link-resume"
+                >
+                  <FileText className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Resume</span>
+                </Link>
+              )}
             </div>
           </div>
         </motion.div>
