@@ -15,12 +15,19 @@ export type ResumeData = {
 };
 
 interface ResumeBuilderProps {
-  initialData: ResumeData;
+  initialData?: ResumeData;
 }
 
 const STORAGE_KEY = "resume_builder_selection";
 
-export default function ResumeBuilder({ initialData }: ResumeBuilderProps) {
+const DEFAULT_RESUME_DATA: ResumeData = {
+  aboutMe: null,
+  projects: [],
+  skills: [],
+  workExperiences: [],
+};
+
+export default function ResumeBuilder({ initialData = DEFAULT_RESUME_DATA }: ResumeBuilderProps) {
   const [step, setStep] = useState<Step>("content");
   const [templateId, setTemplateId] = useState<string>("classic");
   const [selection, setSelection] = useState<ResumeSelectionState | null>(null);
