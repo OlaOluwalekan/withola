@@ -10,6 +10,7 @@ export function DynamicIcon({ icon, className = "w-6 h-6" }: DynamicIconProps) {
 
   if (icon.startsWith("lucide:")) {
     const iconName = icon.replace("lucide:", "");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const IconComponent = (LucideIcons as Record<string, any>)[iconName];
 
     if (IconComponent) {
