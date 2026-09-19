@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, Edit, ExternalLink, GitBranch } from "lucide-react";
 import Image from "next/image";
 import { DynamicIcon } from "@repo/ui/dynamic-icon";
+import DOMPurify from "isomorphic-dompurify";
 
 export default async function ViewProjectPage({
   params,
@@ -120,7 +121,7 @@ export default async function ViewProjectPage({
           <h2 className="text-2xl font-bold mb-6">Readme</h2>
           <div
             className="prose dark:prose-invert max-w-none prose-img:rounded-xl prose-img:shadow-sm"
-            dangerouslySetInnerHTML={{ __html: project.readme }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.readme) }}
           />
         </div>
 

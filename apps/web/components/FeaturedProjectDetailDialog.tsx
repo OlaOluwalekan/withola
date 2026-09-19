@@ -5,12 +5,11 @@ import { DynamicIcon } from '@repo/ui/dynamic-icon'
 import { ExternalLink } from 'lucide-react'
 import { motion } from 'motion/react'
 import { BsGithub } from 'react-icons/bs'
+import DOMPurify from 'isomorphic-dompurify'
 
 const htmlToPlainText = (htmlString: string) => {
-  const parser = new DOMParser()
-  const doc = parser.parseFromString(htmlString, 'text/html')
-
-  return doc.body.textContent
+  const sanitized = DOMPurify.sanitize(htmlString, { ALLOWED_TAGS: [] })
+  return sanitized
 }
 
 interface FeaturedProjectDetailDialogProps {

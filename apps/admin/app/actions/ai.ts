@@ -12,14 +12,8 @@ export async function generateAiSummary(
 
     const apiKey = process.env.GEMINI_API_KEY
     if (!apiKey) {
-      console.warn(
-        'GEMINI_API_KEY environment variable is not set. Returning a fallback summary for development.',
-      )
-      return {
-        summary:
-          'This is a fallback AI generated summary because the GEMINI_API_KEY environment variable is missing. ' +
-          'x'.repeat(150),
-      }
+      console.warn('GEMINI_API_KEY environment variable is not set.')
+      return { error: 'AI summary unavailable' }
     }
 
     const genAI = new GoogleGenerativeAI(apiKey)
