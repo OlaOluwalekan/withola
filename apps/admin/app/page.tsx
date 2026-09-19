@@ -78,7 +78,7 @@ export default async function HomePage() {
           My Resumes
         </Link>
         <Link
-          href='/resume/build'
+          href='/resume/builder'
           className='bg-blue-1000 px-5 py-2 rounded-md cursor-pointer hover:bg-purple-1000'
         >
           Build Resume
