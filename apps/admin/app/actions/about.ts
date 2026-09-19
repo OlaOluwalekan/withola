@@ -1,5 +1,6 @@
 "use server";
 
+import { requireAdmin } from "../../lib/auth-check";
 import { prisma } from "@repo/database";
 import { revalidatePath } from "next/cache";
 
@@ -19,6 +20,7 @@ export async function updateAboutMe(data: {
   phones: string[];
   socials: { name: string; value: string; icon?: string }[];
 }) {
+  await requireAdmin();
   try {
     const existing = await prisma.aboutMe.findFirst();
 

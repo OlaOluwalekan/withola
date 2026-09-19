@@ -1,5 +1,6 @@
 "use server";
 
+import { requireAdmin } from "../../lib/auth-check";
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
@@ -11,6 +12,7 @@ cloudinary.config({
 });
 
 export async function deleteCloudinaryFile(url: string) {
+  await requireAdmin();
   try {
     // URL example: https://res.cloudinary.com/dz9.../image/upload/v172.../folder/file.jpg
     const urlParts = url.split("/");
