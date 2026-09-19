@@ -2,6 +2,7 @@ import { prisma } from "@repo/database";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Edit } from "lucide-react";
+import DOMPurify from "isomorphic-dompurify";
 
 export default async function ViewWorkPage({
   params,
@@ -65,7 +66,7 @@ export default async function ViewWorkPage({
                   key={i}
                   className="prose prose-sm dark:prose-invert max-w-none text-gray-700 dark:text-gray-300"
                 >
-                  <div dangerouslySetInnerHTML={{ __html: resp }} />
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(resp) }} />
                 </li>
               ))}
             </ul>

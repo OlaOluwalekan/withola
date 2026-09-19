@@ -1,5 +1,6 @@
 "use server";
 
+import { requireAdmin } from "../../lib/auth-check";
 import { prisma } from "@repo/database";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -13,6 +14,7 @@ const skillSchema = z.object({
 });
 
 export async function createSkill(formData: FormData) {
+  await requireAdmin();
   const data = Object.fromEntries(formData.entries());
   const parsed = skillSchema.safeParse(data);
 
@@ -29,6 +31,7 @@ export async function createSkill(formData: FormData) {
 }
 
 export async function updateSkill(id: string, formData: FormData) {
+  await requireAdmin();
   const data = Object.fromEntries(formData.entries());
   const parsed = skillSchema.safeParse(data);
 
@@ -46,6 +49,7 @@ export async function updateSkill(id: string, formData: FormData) {
 }
 
 export async function deleteSkill(id: string) {
+  await requireAdmin();
   await prisma.skill.delete({
     where: { id },
   });

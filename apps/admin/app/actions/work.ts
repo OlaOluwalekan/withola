@@ -1,5 +1,6 @@
 "use server";
 
+import { requireAdmin } from "../../lib/auth-check";
 import { prisma } from "@repo/database";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -23,6 +24,7 @@ const workSchema = z.object({
 });
 
 export async function createWork(formData: FormData) {
+  await requireAdmin();
   const data = Object.fromEntries(formData.entries());
   let responsibilities: string[] = [];
   try {
@@ -44,6 +46,7 @@ export async function createWork(formData: FormData) {
 }
 
 export async function updateWork(id: string, formData: FormData) {
+  await requireAdmin();
   const data = Object.fromEntries(formData.entries());
   let responsibilities: string[] = [];
   try {
@@ -66,6 +69,7 @@ export async function updateWork(id: string, formData: FormData) {
 }
 
 export async function deleteWork(id: string) {
+  await requireAdmin();
   await prisma.workExperience.delete({
     where: { id },
   });

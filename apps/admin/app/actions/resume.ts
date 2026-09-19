@@ -1,10 +1,12 @@
 "use server";
 
+import { requireAdmin } from "../../lib/auth-check";
 import { prisma } from "@repo/database";
 import { revalidatePath } from "next/cache";
 import { deleteCloudinaryFile } from "./cloudinary";
 
 export async function createResume(name: string, url: string) {
+  await requireAdmin();
   try {
     const existingCount = await prisma.resume.count();
     const isDefault = existingCount === 0;
@@ -26,6 +28,7 @@ export async function createResume(name: string, url: string) {
 }
 
 export async function deleteResume(id: string) {
+  await requireAdmin();
   try {
     const resume = await prisma.resume.findUnique({
       where: { id },
@@ -63,6 +66,7 @@ export async function deleteResume(id: string) {
 }
 
 export async function setDefaultResume(id: string) {
+  await requireAdmin();
   try {
     // We use a transaction to ensure atomic updates
     await prisma.$transaction([

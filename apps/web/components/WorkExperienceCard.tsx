@@ -1,6 +1,7 @@
 import { WorkExperience } from "@repo/database";
 import { Calendar, CheckCircle2, MapPin } from "lucide-react";
 import { motion } from "motion/react";
+import DOMPurify from "isomorphic-dompurify";
 
 const formatDate = (date: Date) => {
   return date.toLocaleDateString("en-Us", { month: "long", year: "numeric" });
@@ -80,7 +81,7 @@ const WorkExperienceCard = ({
               <CheckCircle2 className="w-4 h-4 text-emerald-400/80 mt-0.5 shrink-0 group-hover:scale-110 transition-transform" />
               <div
                 className="leading-relaxed prose prose-sm text-gray-700 dark:text-white"
-                dangerouslySetInnerHTML={{ __html: bullet }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(bullet) }}
               />
             </li>
           ))}

@@ -1,5 +1,6 @@
 "use server";
 
+import { requireAdmin } from "../../lib/auth-check";
 import { prisma } from "@repo/database";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -22,6 +23,7 @@ const projectSchema = z.object({
 });
 
 export async function createProject(formData: FormData) {
+  await requireAdmin();
   const data = Object.fromEntries(formData.entries());
 
   let tags: string[] = [];
@@ -70,6 +72,7 @@ export async function createProject(formData: FormData) {
 }
 
 export async function updateProject(id: string, formData: FormData) {
+  await requireAdmin();
   const data = Object.fromEntries(formData.entries());
 
   let tags: string[] = [];
@@ -119,6 +122,7 @@ export async function updateProject(id: string, formData: FormData) {
 }
 
 export async function deleteProject(id: string) {
+  await requireAdmin();
   await prisma.project.delete({
     where: { id },
   });
