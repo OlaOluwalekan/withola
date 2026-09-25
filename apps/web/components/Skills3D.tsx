@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { SkillCategoryValue } from "../data/skills";
 import { Skill } from "@repo/database";
-import { getSkills } from "../models/skills";
 import SkillCard from "./SkillCard";
 
-const Skills3D = () => {
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+interface Skills3DProps {
+  skills: Skill[];
+}
 
+const Skills3D = ({ skills }: Skills3DProps) => {
   const { groupedSkills, groups } = useMemo(() => {
     const groupedSkills = skills.reduce(
       (acc, curr) => {
@@ -26,17 +26,6 @@ const Skills3D = () => {
   }, [skills]);
 
   //   console.log(groupedSkills)
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const response = await getSkills();
-
-      if (response.data && response.data.skills) {
-        setSkills(response.data.skills);
-      }
-    })();
-  }, []);
 
   return (
     <div

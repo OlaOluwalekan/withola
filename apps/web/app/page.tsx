@@ -10,12 +10,27 @@ import Projects3D from '../components/Projects3D'
 import Skills3D from '../components/Skills3D'
 import WorkExperience from '../components/WorkExperience'
 import ContactMe from '../components/ContactMe'
+import { getFeaturedProjects } from '../models/projects'
+import { getSkills } from '../models/skills'
+import { getWorkExperiences } from '../models/experience'
+import { Project, Skill, WorkExperience as WorkExperienceType } from "@repo/database"
 
 export const dynamic = 'force-dynamic'
 
 const HomePage = async () => {
   const resume = await getDefaultResume()
   const hasResume = !!resume
+
+  const [projectsRes, skillsRes, experiencesRes] = await Promise.all([
+    getFeaturedProjects(),
+    getSkills(),
+    getWorkExperiences(),
+  ])
+
+  const featuredProjects = projectsRes.data?.projects as Project[] || []
+  const skills = skillsRes.data?.skills as Skill[] || []
+  const experiences = experiencesRes.data?.workExperiences as WorkExperienceType[] || []
+
   return (
     <div
       className='min-h-screen text-custom-primary bg-custom-bg font-sans selection:bg-emerald-500/20 selection:text-emerald-400 relative transition-colors duration-300'
@@ -38,17 +53,17 @@ const HomePage = async () => {
         </div>
 
         <div id='projects' className='scroll-mt-16'>
-          <Projects3D />
+          <Projects3D featuredProjects={featuredProjects} />
         </div>
 
         {/* SKILLS SECTION */}
         <section id='skills' className='scroll-mt-16'>
-          <Skills3D />
+          <Skills3D skills={skills} />
         </section>
 
         {/* TIMELINE SECTION */}
         <section id='experience' className='scroll-mt-16'>
-          <WorkExperience />
+          <WorkExperience experiences={experiences} />
         </section>
 
         {/* CONTACT SECTION */}
