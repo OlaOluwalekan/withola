@@ -2,31 +2,17 @@
 
 import { WorkExperience as WorkExperienceType } from "@repo/database";
 import { useEffect, useState } from "react";
-import { getWorkExperiences } from "../models/experience";
 import { AnimatePresence } from "motion/react";
 import WorkExperienceCard from "./WorkExperienceCard";
 
-const WorkExperience = () => {
+interface WorkExperienceProps {
+  experiences: WorkExperienceType[];
+}
+
+const WorkExperience = ({ experiences }: WorkExperienceProps) => {
   const [activeTab, setActiveTab] = useState<string | null>(null);
-  const [experiences, setExperiences] = useState<WorkExperienceType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const response = await getWorkExperiences();
-
-      if (response.data && response.data.workExperiences) {
-        setExperiences(response.data.workExperiences);
-      }
-
-      setIsLoading(false);
-    })();
-  }, []);
-
-  useEffect(() => {
-    console.log(experiences);
-
     if (experiences.length > 0) {
       setActiveTab(experiences[0]?.id as string);
     }
