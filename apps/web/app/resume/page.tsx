@@ -7,6 +7,8 @@ export const metadata = {
   description: "View my resume",
 };
 
+export const dynamic = 'force-dynamic'
+
 export default async function ResumePage() {
   const resume = await getDefaultResume();
 
