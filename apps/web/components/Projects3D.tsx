@@ -2,13 +2,16 @@
 
 import { Project } from "@repo/database";
 import { useEffect, useRef, useState } from "react";
-import { getFeaturedProjects } from "../models/projects";
 import SingleFeaturedProject from "./SingleFeaturedProject";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence } from "motion/react";
 import FeaturedProjectDetailDialog from "./FeaturedProjectDetailDialog";
 
-const Projects3D = () => {
+interface Projects3DProps {
+  featuredProjects: Project[];
+}
+
+const Projects3D = ({ featuredProjects }: Projects3DProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [rotation, setRotation] = useState(0);
@@ -18,21 +21,8 @@ const Projects3D = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [cardCount, setCardCount] = useState(0);
   const [angleStep, setAngleStep] = useState(0);
-  const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const response = await getFeaturedProjects();
-
-      if (response.data) {
-        setFeaturedProjects(response.data.projects as Project[]);
-      }
-
-      setIsLoading(false);
-    })();
-
     // Adapt 3D translateZ radius based on responsive screen width
     const handleResize = () => {
       const width = window.innerWidth;
